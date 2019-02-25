@@ -1,0 +1,31 @@
+{
+  "name": "local-lambda-invoke",
+  "version": "0.0.1",
+  "description": "lambda.invoke() for local development",
+  "main": "src/index.js",
+  "keywords": [
+    "lambda",
+    "aws",
+    "invoke"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jameskyburz/local-lambda-invoke.git"
+  },
+  "author": {
+    "name": "James Kyburz",
+    "email": "james.kyburz@gmail.com"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "tap test/*.js"
+  },
+  "dependencies": {},
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "aws-sdk": "2.409.0",
+    "tap": "12.1.0"
+  }
+}
