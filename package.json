@@ -1,6 +1,6 @@
 {
   "name": "local-lambda-invoke",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "lambda.invoke() for local development",
   "main": "src/index.js",
   "keywords": [
