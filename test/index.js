@@ -1,10 +1,10 @@
 const { test } = require('tap')
-const AWS = require('aws-sdk')
-const localLambdaInvoke = require('../')(AWS)
+const Lambda = require('aws-sdk/clients/lambda')
+const localLambdaInvoke = require('../')(Lambda)
 
 test('invoke with invocation type event', async t => {
   t.plan(3)
-  AWS.Lambda[Symbol.for('localHandlers')] = {
+  Lambda[Symbol.for('localHandlers')] = {
     async 'test-lambda' (event, context) {
       t.ok(context.getRemainingTimeInMillis() > 0)
       t.equals(event.testing, 'test')
@@ -19,7 +19,7 @@ test('invoke with invocation type event', async t => {
     Qualifier: '$LATEST'
   }
 
-  const lambda = new AWS.Lambda()
+  const lambda = new Lambda()
   const result = await lambda.invoke(params).promise()
 
   t.equals(result, undefined)
@@ -27,7 +27,7 @@ test('invoke with invocation type event', async t => {
 
 test('invoke with invocation type request response', async t => {
   t.plan(3)
-  AWS.Lambda[Symbol.for('localHandlers')] = {
+  Lambda[Symbol.for('localHandlers')] = {
     async 'test-lambda' (event, context) {
       t.ok(context.getRemainingTimeInMillis() > 0)
       t.equals(event.testing, 'test')
@@ -45,7 +45,7 @@ test('invoke with invocation type request response', async t => {
     Qualifier: '$LATEST'
   }
 
-  const lambda = new AWS.Lambda()
+  const lambda = new Lambda()
   const result = await lambda.invoke(params).promise()
 
   t.equals(result.ok, true)
