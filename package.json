@@ -26,6 +26,6 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "aws-sdk": "2.544.0",
-    "tap": "13.1.0"
+    "tap": "14.6.9"
   }
 }
