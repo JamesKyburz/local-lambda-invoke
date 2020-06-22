@@ -10,11 +10,11 @@ Support a lambda calling another lambda for local use only.
 ### usage
 
 ```javascript
-const AWS = require('aws-sdk')
-const localLambdaInvoke = require('local-lambda-invoke')(AWS)
+const Lambda = require('aws-sdk/clients/lambda')
+const localLambdaInvoke = require('local-lambda-invoke')(Lambda)
 
-AWS.Lambda[Symbol.for('localHandlers')] = {
-  async 'test-lambda' (event, context) { }
+Lambda[Symbol.for('localHandlers')] = {
+  async 'test-lambda' (event, context) { return 'okidoki' }
 }
 
 const params = {
@@ -25,7 +25,7 @@ const params = {
   Qualifier: '$LATEST'
 }
 
-const lambda = new AWS.Lambda()
+const lambda = new Lambda()
 lambda.invoke(params).promise().then(console.log, console.error)
 
 ```
