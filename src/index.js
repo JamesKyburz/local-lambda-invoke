@@ -25,10 +25,8 @@ module.exports = Lambda => {
             }
             const payload = JSON.parse(params.Payload)
             if (fn.length === 3) {
-              fn(
-                payload,
-                context,
-                (err, data) => (err ? reject(err) : resolve(data))
+              fn(payload, context, (err, data) =>
+                err ? reject(err) : resolve(data)
               )
             } else {
               fn(payload, context).then(resolve, reject)
