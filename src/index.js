@@ -11,7 +11,6 @@ module.exports = Lambda => {
       promise () {
         return new Promise((resolve, reject) => {
           process.nextTick(() => {
-            if (params.InvocationType === 'Event') resolve()
             const handlers = Lambda[localHandlersKey]
             const fn = handlers && handlers[params.FunctionName]
             if (!fn) {
@@ -23,13 +22,20 @@ module.exports = Lambda => {
                 )
               )
             }
+            const wrappedResolve = result => {
+              if (params.InvocationType === 'Event') {
+                resolve()
+              } else {
+                resolve(result)
+              }
+            }
             const payload = JSON.parse(params.Payload)
             if (fn.length === 3) {
               fn(payload, context, (err, data) =>
-                err ? reject(err) : resolve(data)
+                err ? reject(err) : wrappedResolve(data)
               )
             } else {
-              fn(payload, context).then(resolve, reject)
+              fn(payload, context).then(wrappedResolve, reject)
             }
           })
         })
